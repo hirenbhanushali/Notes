@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap' rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+    <body>
+        <div class="container">
+            <form id="noteForm">
+                <div>
+                    <div class="row">
+                        <div class="column">
+                            <label for="notes">Note</label>
+                            <textarea rows="15" id="note"></textarea>
+                        </div>
+                    </div>
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+    <script>
+        const thisForm = document.getElementById('noteForm');
+        thisForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const formData = new FormData(thisForm).entries()
+            const response = await fetch('https://script.google.com/macros/s/AKfycbyURN4KY4zMgQ1iqV_MOicrSGzS0MlEIY4N94VMHS0jOXddKL9uyMnsPilFOa3wv1wUQw/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(formData))
+            });
+
+            const result = await response.json();
+            console.log(result)
+        });
+    </script>
+    </body>
+</html>
